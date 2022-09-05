@@ -1,0 +1,1028 @@
+/*body{
+font-family: 'Montserrat' !important;
+font-size: .9rem;
+#8764AA - Purple
+#4C78A4 - Blue
+#2B9392 - Green
+#5fb774 - Light Green
+}*/
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+html,
+body {
+  overflow-x: hidden !important;
+  background-color: #F8F9FA;
+  /* min-width: 375px;  */
+}
+
+.no-padding-right
+{
+  padding-right: 0px !important;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link
+{
+  margin-left: 25px;
+  transition: color 0.4s, border-bottom 0.4s;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link:hover
+{
+  color: #8764AA;
+  border-bottom: 1px solid #8764AA;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link .icon, .mobile-menu a .icon
+{
+  font-size: 20px;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link .text, .mobile-menu a .text
+{
+  font-size: 13px;
+  
+}
+
+/* mobile menu css */
+.mobile-nav
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  padding: 16px 32px;
+  display: none;
+}
+
+
+.mobile-menu-container
+{
+  padding-left: 30px;
+  padding-right: 30px;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-image: linear-gradient(to right, #8764AA,#4C78A4,#5fb774);
+}
+
+.myhamburger
+{
+  display: block;
+  position: relative;
+  user-select: none;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+.myhamburger span{
+  display: block;
+  width: 30px;
+  height: 3px;
+  margin-bottom: 5px;
+  position: relative;
+  border-radius: 6px;
+  background-color: white;
+  z-index: 300;
+  transform-origin: 0 0;
+  transition: 0.4s;
+}
+
+.mobile-menu
+{
+  position: fixed;
+  top: 0;
+  right: 100%;
+  width: 300px;
+  min-height: 250px;
+  border-radius: 8px;
+  display: block;
+  z-index: 200;
+  background-color: #F8F9FA;
+  box-shadow: 1px 2px 2px -2px rgba(43, 43, 43, 0.285);
+  padding: 20px;
+  transition: 0.4s;
+}
+
+.mobile-menu.is-active{
+  left: 0;
+}
+
+/*body dark overlay when dropdown is triggered on mobile*/
+.overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+/* dropdown for sidebar conversion */
+.mobile-side-menu
+{
+  width: 90%;
+  display: none;
+  padding: 15px;
+  z-index: 100;
+  background: white;
+  position: fixed;
+  top: 15%;
+}
+
+.mobile-side-menu.menu-active
+{
+  display: block;
+}
+
+.mydropdown
+{
+  position: relative;
+  width: 200px;
+  height: 35px;
+}
+
+.mydropdown::before
+{
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #333;
+  right: 20px;
+  top: 13px;
+  z-index: 5;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.mydropdown.active::before
+{
+  transform: rotate(-225deg);
+}
+
+.mydropdown input
+{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background: transparent;
+  padding: 12px 20px;
+  border: 1px solid rgb(208, 208, 208);
+  border-radius: 7px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  z-index: 4;
+}
+
+.mydropdown .option
+{
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  background: #F8F9FA;
+  box-shadow: 0 30px 30px rgba(0,0,0,0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  display: none;
+  z-index: 4;
+}
+
+.mydropdown.active .option
+{
+  display: block;
+}
+
+.mydropdown .option div
+{
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
+.mydropdown .option div:hover
+{
+  background-color: slateblue;
+  color: white;
+}
+/* dropdown */
+
+.overlay.is-active
+{
+  display: block;
+}
+
+.mobile-menu a
+{
+  display: block;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  color: rgb(100, 100, 100);
+  width: 100%;
+  max-width: 200px;
+  border-bottom: 1px solid lightgrey;
+  margin: 0 auto 16px;
+  text-decoration: none;
+  transition: color 0.4s;
+}
+
+.mobile-menu a:hover{
+  color: #8764AA;
+}
+
+.myhamburger:hover span:nth-child(2)
+{
+  transform: translateX(10px);
+  background-color: var(--primary);
+}
+
+.myhamburger.is-active span:nth-child(1)
+{
+  transform: translate(-2px, -3px) rotate(45deg);
+  width: 22px;
+  background-color: rgb(100, 100, 100);
+}
+
+.myhamburger.is-active span:nth-child(3)
+{
+  transform: translate(-4px, -3px) rotate(-45deg);
+  width: 22px;
+  background-color: rgb(100, 100, 100);;
+}
+
+.myhamburger.is-active span:nth-child(2)
+{
+  opacity: 0;
+  transform: translateX(15px);
+}
+/* end of mobile menu css */
+
+
+
+/* login page css main*/
+.form-signin
+{
+  width: 500px;
+  margin: 150px auto;
+}
+
+.form-signin .site-logo
+{
+  width: 35%;
+}
+/* login page css  */
+
+
+
+
+/* sidebar css */
+.app-side-bar-mobile
+{
+  display: none;
+}
+/* sidbar css */
+
+
+label
+{
+  font-weight: 200;
+  font-size: 14px;
+}
+
+.col-form-label
+{
+  font-size: 13px;
+}
+
+.business-income-name-input
+{
+  /* margin-left: 10px; */
+  width: 480px;
+}
+
+.business-income-date-input
+{
+  width: 200px;
+}
+
+.business-income-date-input
+{
+  width: 200px;
+}
+
+.button-flex
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.text-info{
+  color: #5b7ca3;
+  font-size: .8em;
+  font-weight: 200;
+  text-align: justify;
+}
+
+.rental-multibusiness-toggler
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  margin-top: 15px;
+  margin-bottom: 26px;
+  border-radius: 5px;
+  width: 100%;
+  height: 60px;
+  background-color: rgb(237, 234, 234);
+}
+
+.multibusiness-toggler-right button{
+  font-size: 13px;
+}
+
+.multibusiness-toggler-right .fa-plus
+{
+  color: white;
+  border-radius: 20px;
+  padding: 5px;
+  background-color: green;
+}
+
+.multibusiness-toggler-right .fa-trash
+{
+  color: green;
+}
+
+/* multibutton select css */
+/* new */
+.my-container
+{
+  width: 250px; 
+  height: 38px; 
+  margin: 100px auto;
+}
+
+div label input {margin-right: 100px;}
+
+.multi-year-options
+{
+  display: flex;
+  column-gap: 10px;
+}
+
+.multi-year-btn-container
+{
+  position: relative;
+}
+
+.multi-year-btn{
+  
+  border-radius: 5px;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+  overflow: hidden;
+  float: left;
+}
+
+.multi-year-btn label {
+ /* width: 40px;*/
+ /* height: 40px;*/
+}
+
+.multi-year-btn label:hover {
+     cursor: pointer;
+  }
+
+.multi-year-btn label span {
+  text-align: center;
+  padding: 10px;
+  display: block;
+}
+
+.multi-year-btn label input {
+  position: absolute;
+  display: none;
+  color: #fff !important;
+}
+
+.multi-year-btn label input + span
+{
+  color: #6c757d;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+
+.multi-year-btn input:checked + span {
+    color: #fff;
+    text-shadow: 0 0  6px rgba(0, 0, 0, 0.8);
+}
+
+.action span
+{
+  transition: color 0.5s, background-color 0.5s;
+}
+
+.action input:hover + span
+{
+  background-color: #8764AA;
+  color: #fff;
+}
+
+.action input:checked + span
+{
+  background-color: #8764AA;
+  color: #fff;
+}
+
+.completed-year-check-mark
+{
+  position: relative;
+  top: -10px;
+  padding: 5px;
+  background: green;
+  border-radius: 50%;
+  border: 1px solid white;
+  font-size: 8px;
+  z-index: 99999;
+  color: white;
+  right: 14px;
+  width: 20px;
+}
+/* end of multibutton select */
+
+
+
+.rental-short-input
+{
+  width: 200px;
+}
+
+.rental-semi-input,.business-income-semi-input
+{
+  width: 300px;
+}
+
+.rental-medium-input, .business-income-medium-input
+{
+  width: 400px;
+}
+
+.rental-multibusiness-toggler .business-income-date-input
+{
+  border: 0px;
+  color: green;
+  border-bottom:2px solid green;
+  padding-bottom: 5px;
+}
+
+.account-select select
+{
+  border: 0px;
+  color: green;
+  border-bottom:2px solid green;
+  padding-bottom: 5px;
+}
+
+.section-header
+{
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgb(74, 124, 233);
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.info-group p
+{
+  color: rgb(74, 124, 233);
+}
+
+.info-group span
+{
+  margin-left: 5px;
+}
+
+.info-group span i
+{
+  border: 2px solid rgb(74, 124, 233);
+  width: 25px;
+  font-size: 13px;
+  height: 25px;
+  text-align: center;
+  padding: 4px 8.3px;
+  border-radius: 25px;
+}
+
+.number-of-forms
+{
+  /* width: 50px; */
+  color: #4C78A4 !important;
+  font-size: .9em;
+}
+
+.site-logo{
+   width: 65%;
+}
+
+.top-nav-bar a{
+  color: #9f9ea1;
+}
+
+.text-light{
+  color: #9f9ea1;
+}
+
+.text-grey{
+  color: #c7c7c7;
+}
+
+.inner-wrapper{
+  background-image: linear-gradient(to right, #8764AA,#4C78A4,#5fb774);
+
+}
+
+.bread-crumbs{
+  color: #ffffff;
+  width: 400px;
+}
+
+
+.artboard{
+  background-color: #ffffff;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+/* 
+  display:flex;
+  flex-direction:column; */
+}
+
+
+.sidebar
+{
+  height: 100vh;
+  flex:1;
+}
+
+
+#progress-bar-container {
+  width: 100%;
+  height: 17px;
+
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 35px;
+  border: 1px solid #c8ebff;
+  overflow: hidden;
+}
+
+.progress-bar-child {
+  width: 100%;
+  height: 100%;
+}
+
+.progress {
+  color: white;
+  text-align: center;
+  line-height: 85px;
+  font-size: 35px;
+  font-family: "Segoe UI";
+  animation-direction: reverse;
+  background: #ffffff;
+
+/*#8764AA - Purple
+#4C78A4 - Blue
+#2B9392 - Green*/
+  /* Chrome10-25,Safari5.1-6 */
+
+}
+
+.pr-bg-start{
+ background: linear-gradient(to right, #8764AA 100%, #4C78A4 0%, #2B9392 0%);
+}
+
+.pr-bg-mid{
+ background: linear-gradient(to right, #8764AA 70%, #4C78A4 100%, #2B9392 0%);
+}
+
+.pr-bg-end{
+ background: linear-gradient(to right, #8764AA 40%, #4C78A4 50%, #2B9392 100%);
+}
+
+
+.tax-year-port-wrapper select{
+  border: none ;
+  background-color: #f9f7fb;
+  font-size: 13px;
+  color: #ababab;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+
+}
+
+
+.progress-text{
+ color: #ababab;
+ font-size: 13px;
+ margin-top: 4px;
+}
+
+.side-bar-wrapper{
+  background-color: #f9f7fb;
+  border-top-left-radius: 6px;
+  padding-top:2.5em;
+  padding-left: 0px;
+  padding-right: 0px;
+  transition: left 0.4s ease;
+}
+
+
+.dark-grey{
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #808080;
+  text-align: left;
+  background-color: #f2eef9;
+}
+
+
+.light-grey {
+  color: #818589;
+}
+
+.light-blue {
+  color: #4C78A4;
+}
+
+.margin-big {
+  margin-top: 7rem; }
+
+.button_primary {
+  background-color: #0074c8;
+}
+
+
+.btn-site-main {
+  color: #fff;
+  background-color: #8764AA;
+  border-color: #8764AA;
+}
+
+.btn-site-primary:hover {
+  color: #fff;
+  background-color: #8764AA;
+  border-color: #8764AA;
+}
+
+.btn-outline-secondary:active,.btn-outline-secondary.focus {
+  color: #fff;
+  background-color: #8764AA !important;
+  border-color: #8764AA;
+}
+
+.btn-site-primary:focus {
+ /* box-shadow: 0 0 0 0rem #8764AA !important;*/
+}
+
+.btn-active{
+  color: #fff;
+  background-color: #8764AA;
+  border-color: #8764AA;
+}
+
+.btn-check:active + .btn-outline-secondary, .btn-check:checked + .btn-outline-secondary, .btn-outline-secondary.active, .btn-outline-secondary.dropdown-toggle.show, .btn-outline-secondary:active{
+  background-color: #8764AA !important;
+  border-color: #8764AA !important;
+  box-shadow: 0 0 0 0rem #8764AA !important;
+}
+
+.btn-outline-info, .btn-outline-info.active, .btn-outline-info.dropdown-toggle.show, .btn-outline-info:active {
+
+}
+
+.breadcrumb li a{
+
+}
+
+#file_names,#file_name2, #file_name3 , #file_name4, #file_name5, #file_name6, #file_name7, #file_name8, #file_name9{
+  font-size: 17px;
+  color: #8764AA;
+
+}
+
+.cs-file-upload{
+  position: relative;
+  overflow: hidden;
+}
+
+.cs-file-upload input{
+  position: absolute;
+  font-size: 20px;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+
+.cs-breadcrumbs li{
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.cs-breadcrumbs li a{
+   text-decoration: none !important;
+}
+
+.section-active {
+  border-bottom: 2px solid #000 !important;
+}
+
+.error{
+  color: red;
+}
+
+.display-none{
+  display: none;
+}
+
+.clear-both{
+  clear: both;
+}
+
+/* button checkbox */
+
+.button-checkbox{
+    margin: 4px;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid #6c757d;
+    border-color: #6c757d;
+    overflow: hidden;
+    float: left;
+  }
+
+  .button-checkbox label {
+    float: left; line-height: 3.0em;
+    width: 8.0em; height: 3.0em;
+  }
+
+  .button-checkbox label span {
+    text-align: center;
+    padding: 3px 0;
+    display: block;
+  }
+
+  .button-checkbox label input {
+    position: absolute;
+    display: none;
+    color: #6c757d !important;
+  }
+  /* selects all of the text within the input element and changes the color of the text */
+  .button-checkbox label input + span{color: #6c757d;}
+
+
+  /* This will declare how a selected input will look giving generic properties */
+  .button-checkbox input:checked + span {
+      color: #fff;
+      text-shadow: 0 0  6px rgba(0, 0, 0, 0.8);
+      background-color: #8764AA;
+  }
+
+
+/* Tooltip container */
+.cs-tooltip {
+  position: relative;
+  display: inline-block;
+ 
+}
+
+/* Tooltip text */
+.cs-tooltip .cs-tooltiptext {
+  visibility: hidden;
+  background-color: #4C78A4;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  border-radius: 6px;
+
+   width: 500px;
+   bottom: 100%;
+   left: 50%;
+   margin-left: -60px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.cs-tooltip:hover .cs-tooltiptext {
+  visibility: visible;
+}
+
+.cs-tooltip .cs-tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 15%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #4C78A4 transparent transparent transparent;
+}
+
+.comment-area{
+  width: 150px;
+  background-color: #ededed;
+  font-size:.7em;
+  position: relative;
+  top:78px;
+  color: #4C78A4;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  border-radius: 5px;
+  cursor:pointer;
+}
+
+
+/*.btn-site-primary.disabled, .btn-site-primary:disabled {
+  color: #6c757d;
+  background-color: transparent;
+}
+
+.btn-site-primary:not(:disabled):not(.disabled):active, .btn-site-primary:not(:disabled):not(.disabled).active,
+.show > .btn-outline-secondary.dropdown-toggle {
+  color: #fff;
+  background-color: #8764AA;
+  border-color: #8764AA;
+}
+
+.btn-site-primary:not(:disabled):not(.disabled):active:focus, .btn-site-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-site-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem #8764AA;
+}*/
+
+.bottom 
+{
+  width: 100%;
+  height: 50px;
+  background-color: blue;
+}
+
+
+.content-port
+{
+  padding: 0px;
+}
+
+.stepwizard
+{
+  left: 0px;
+  right: 0px;
+  top: 0px;
+}
+
+
+
+/* responsive css by gerron */
+@media (max-width: 768px) 
+{
+  .mobile-nav
+  {
+    display: contents;
+  }
+
+  .main-menu
+  {
+    display: none;
+  }
+
+  label
+  {
+    font-size: 13px;
+  }
+
+
+  /* login page css mobile */
+  .form-signin
+  {
+    width: 100%;
+    margin: 120px auto;
+  }
+
+  .form-signin .site-logo
+  {
+    width: 48%;
+  }
+  /* login page css  mobile*/
+
+
+  .logo-on-mobile
+  {
+    width: 70%;
+    height: 50%;
+    margin: 5px auto;
+  }
+
+  .side-bar-wrapper
+  {
+    padding-bottom: 10px;
+  }
+
+  .stepwizard
+  {
+    background-color: #F8F9FA;
+  }
+
+  .breadcrumb-item
+  {
+    font-size: 13px;
+  }
+
+  .inner-wrapper
+  {
+    background-image: none;
+  }
+
+  .optional-header,.main-app-side-bar
+  {
+    display: none;
+  }
+
+  .main-sidebar
+  {
+    display: none;
+  }
+
+  .app-side-bar-mobile
+  {
+    display: block;
+  }
+
+  .tax-year-port-wrapper select
+  {
+    border: none;
+    padding: 5px;
+    height: 35px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    font-size: 15px;
+    background-color: transparent;
+    border: 1px solid rgb(208, 208, 208);
+  }
+
+
+  .main-content-wrapper
+  { 
+    
+  }
+
+  .content-port
+  {
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+
+  .business-income-name-input
+  {
+    width: 100%;
+  }
+
+
+}
+/* end of responsive css by gerron */
+
+
+@media only screen and (max-width: 768px) 
+{
+
+}
+
+@media (min-width: 576px) {
+
+ }
+
+
+@media (min-width: 992px) {  }
+
+
+@media (min-width: 1200px) {  }
+
+
+@media (min-width: 1400px) {  }
+
+
+

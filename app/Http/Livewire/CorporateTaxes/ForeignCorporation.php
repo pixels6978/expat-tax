@@ -145,12 +145,12 @@ class ForeignCorporation extends Component
             $data->are_assets_worth_one_million = $this->isAssetWorth;
 
             if(!empty($this->DocumentForBalanceSheet)){
-                $data->balance_sheet = $this->DocumentForBalanceSheet->store('files');
+                $data->balance_sheet = $this->DocumentForBalanceSheet->storeOnCloudinary('expattaxcpa')->getSecurePath(); 
             }
 
             $data->profit_loss_statement = $this->HaveProfitLossStatement;
             if(!empty($this->DocumentForProfitLossStatment)){
-                $data->profit_loss_statement_file = $this->DocumentForProfitLossStatment->store('files');
+                $data->profit_loss_statement_file = $this->DocumentForProfitLossStatment->storeOnCloudinary('expattaxcpa')->getSecurePath(); 
             }
 
             $data->income_currency = $this->incomeExpenseCurrency;
@@ -202,7 +202,7 @@ class ForeignCorporation extends Component
              $data->is_first_time = $this->isFirstTimeFiling1120F;
 
              if(!empty($this->LastFiled1120F)){
-                 $data->last_filed_form = $this->LastFiled1120F->store('files');
+                 $data->last_filed_form = $this->LastFiled1120F->storeOnCloudinary('expattaxcpa')->getSecurePath(); 
              }
 
              $data->corporation_name = $this->nameOfCorporation;
@@ -228,7 +228,7 @@ class ForeignCorporation extends Component
 
              $data->profit_loss_statement = $this->HaveProfitLossStatement;
              if(!empty($this->DocumentForProfitLossStatment)){
-                 $data->profit_loss_statement_file = $this->DocumentForProfitLossStatment->store('files');
+                 $data->profit_loss_statement_file = $this->DocumentForProfitLossStatment->storeOnCloudinary('expattaxcpa')->getSecurePath(); 
              }
 
              $data->income_currency = $this->incomeExpenseCurrency;

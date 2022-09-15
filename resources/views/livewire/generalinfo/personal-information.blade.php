@@ -202,6 +202,7 @@
 
                         <div class="col-md-7 ml-5">
                             <div class="form-group">
+                                
                                 <div class="form-group light-grey">
                                     <label for="">Upload copy of social security card
                                         @error('SSNFile')<span class="error">*</span> @enderror
@@ -237,11 +238,9 @@
                                         </div>
                                     </div>
 
-                                   
-
-
-
                                 </div>
+
+
                             </div>
                         </div>
 

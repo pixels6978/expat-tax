@@ -239,7 +239,7 @@
 
                               @if(session()->get('isFBARRequired') == 'no')
                               <li class="{{ Request::is('fbr-8938*') ? 'active' : '' }}">
-                                <a href="{{route('FBR8938')}}" class="link-dark rounded" class="link-dark rounded">FBAR and 8938</a>
+                                <a href="{{route('FBR8938')}}" class="link-dark rounded" class="link-dark rounded">FBAR</a>
                               </li>
                               @endif
 
@@ -260,21 +260,36 @@
                           </button>
                           <div class="collapse" id="corporate-collapse" style="">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                
+                                @if(session()->get('fileCcorporation') == 1)
                                 <li class="{{ Request::is('c-corporations*') ? 'active' : '' }}">
                                     <a href="{{route('c-corporations')}}" class="link-dark rounded">C-Corporation</a>
                                 </li>
+                                @endif
+
+                                @if(session()->get('fileScorporation') == 1)
                                 <li class="{{ Request::is('s-corporations*') ? 'active' : '' }}">
-                                    <a href="{{route('s-corporations')}}" class="link-dark rounded">S-Corporation</a>
+                                    <a href="{{route('s-corporations')}}" class="link-dark rounded">S-CORPORATIONS 1120S</a>
                                 </li>
+                                @endif
+
+                                @if(session()->get('filePartnership') == 1)
                                 <li class="{{ Request::is('partnership*') ? 'active' : '' }}">
                                     <a href="{{route('partnership')}}" class="link-dark rounded">Partnerships</a>
                                 </li>
+                                 @endif
+
+                                 @if(session()->get('fileForeignCorporation') == 1)
                                 <li class="{{ Request::is('foreign-corporation-112DF*') ? 'active' : '' }}">
                                     <a href="{{route('foreign-corporation-112DF')}}" class="link-dark rounded">Foreign Corporation 112DF</a>
                                 </li>
+                                @endif
+
+                                @if(session()->get('fileNotProfit') == 1)
                                 <li class="{{ Request::is('not-profit*') ? 'active' : '' }}">
                                     <a href="{{route('not-profit')}}" class="link-dark rounded">Not Profit</a>
                                 </li>
+                                 @endif
                             </ul>
                           </div>
                         </li>

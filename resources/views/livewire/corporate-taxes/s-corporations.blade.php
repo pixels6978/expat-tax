@@ -50,7 +50,12 @@
 
                         @if (!empty($UploadedLastFiled1120))
                             <div>
-                                <span><i class="fa fa-file text-primary" style="font-size: 30px; display:inline"></i><a href="{{ storage_path('app/'.$UploadedLastFiled1120) }}">{{$UploadedLastFiled1120 }}</a></span>
+                                <span><i class="fa fa-file text-primary" style="font-size: 30px; 
+                                display:inline"></i><a href="{{$UploadedLastFiled1120 }}">View File</a></span>
+                                <span wire:click="deleteFile('last-filed')" 
+                                            style="border-radius:10px; border:1px solid #ccc; font-size: 13px; cursor:pointer;" class="error">
+                                            <i class="fa fa-trash ml-4"></i>
+                                </span>
                             </div>
                         @endif
 
@@ -58,7 +63,15 @@
                             <div class="form-group light-grey">
                                 <div class="form-group ">
                                     <div class="file btn btn-outline-success cs-file-upload">
-                                        <i class="fa fa-upload mr-4"></i> Upload Document
+                                         <span class="spinner-border text-dark" wire:loading wire:target="LastFiled1120">
+                                        <span class="visually-hidden">Loading...</span>
+                                        </span>
+
+                                           @if(!empty($LastFiled1120)) 
+                                                   <i  class="fa fa-check "></i> {{ $LastFiled1120->getClientOriginalName() }} Uploaded 
+                                                   @else  <i class="fa fa-upload mr-4"></i> Upload Document
+                                            @endif
+                                        
                                     <input wire:model="LastFiled1120" type="file"  />
                                     </div>
                                 </div>
@@ -70,6 +83,8 @@
             @endif
         </div>
 
+
+        @if($isFirstTimeFiling1120 === 'yes')
 
         <div class="mt-5" id="general_partnership_information">
             <h6 class="section-header">
@@ -273,7 +288,12 @@
 
                         @if (!empty($UploadedDocumentForBalanceSheet))
                             <div>
-                                <span><i class="fa fa-file text-primary" style="font-size: 30px; display:inline"></i><a href="{{ storage_path('app/'.$UploadedDocumentForBalanceSheet) }}">{{$UploadedDocumentForBalanceSheet }}</a></span>
+                                <span><i class="fa fa-file text-primary" style="font-size: 30px; display:inline"></i><a href="{{$UploadedDocumentForBalanceSheet }}">View File</a></span>
+
+                                <span wire:click="deleteFile('balance-sheet')" 
+                                            style="border-radius:10px; border:1px solid #ccc; font-size: 13px; cursor:pointer;" class="error">
+                                            <i class="fa fa-trash ml-4"></i>
+                                </span>
                             </div>
                         @endif
 
@@ -281,7 +301,14 @@
                             <div class="form-group light-grey">
                                 <div class="form-group ">
                                     <div class="file btn btn-outline-success cs-file-upload">
-                                        <i class="fa fa-upload mr-4"></i> Upload Balance Sheet
+                                        <span class="spinner-border text-dark" wire:loading wire:target="DocumentForBalanceSheet">
+                                          <span class="visually-hidden">Loading...</span>
+                                        </span>
+                                          @if(!empty($DocumentForBalanceSheet)) 
+                                                   <i  class="fa fa-check "></i> {{ $DocumentForBalanceSheet->getClientOriginalName() }} Uploaded 
+                                                   @else    <i class="fa fa-upload mr-4"></i> Upload Balance Sheet
+                                            @endif
+                                       
                                     <input wire:model="DocumentForBalanceSheet" type="file"  />
                                     </div>
                                 </div>
@@ -321,7 +348,12 @@
 
                         @if (!empty($UploadedDocumentForProfitLossStatment))
                             <div>
-                                <span><i class="fa fa-file text-primary" style="font-size: 30px; display:inline"></i><a href="{{ storage_path('app/'.$UploadedDocumentForProfitLossStatment) }}">{{$UploadedDocumentForProfitLossStatment }}</a></span>
+                                <span><i class="fa fa-file text-primary" style="font-size: 30px; display:inline"></i><a href="{{$UploadedDocumentForProfitLossStatment }}">View File</a></span>
+
+                                <span wire:click="deleteFile('profit-loss')" 
+                                            style="border-radius:10px; border:1px solid #ccc; font-size: 13px; cursor:pointer;" class="error">
+                                            <i class="fa fa-trash ml-4"></i>
+                                </span>
                             </div>
                         @endif
 
@@ -329,7 +361,13 @@
                             <div class="form-group light-grey">
                                 <div class="form-group ">
                                     <div class="file btn btn-outline-success cs-file-upload">
-                                        <i class="fa fa-upload mr-4"></i> Upload Statement
+                                        <span class="spinner-border text-dark" wire:loading wire:target="DocumentForProfitLossStatment">
+                                        <span class="visually-hidden">Loading...</span>
+                                        </span>
+                                         @if(!empty($DocumentForProfitLossStatment)) 
+                                                   <i  class="fa fa-check "></i> {{ $DocumentForProfitLossStatment->getClientOriginalName() }} Uploaded 
+                                                   @else  <i class="fa fa-upload mr-4"></i> Upload Statement
+                                            @endif
                                     <input wire:model="DocumentForProfitLossStatment" type="file"  />
                                     </div>
                                 </div>
@@ -842,7 +880,9 @@
 
         </div>
 
+        @endif
 
+        
         <div class="row mt-5">
             <div class="button-flex">
                 <button type="button" wire:click='prevForm' class="btn btn-outline-secondary mr-auto btn-site-primary color-text-white">

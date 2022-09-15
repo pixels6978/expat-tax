@@ -134,7 +134,7 @@ class SCorporations extends Component
             $data->is_first_time = $this->isFirstTimeFiling1120;
 
             if(!empty($this->LastFiled1120)){
-                $data->last_filed_form = $this->LastFiled1120->store('files');
+                $data->last_filed_form = $this->LastFiled1120->storeOnCloudinary('expattaxcpa')->getSecurePath(); 
             }
 
             $data->corporation_name = $this->nameOfCorporation;
@@ -212,7 +212,7 @@ class SCorporations extends Component
              $data->is_first_time = $this->isFirstTimeFiling1120;
 
              if(!empty($this->LastFiled1120)){
-                 $data->last_filed_form = $this->LastFiled1120->store('files');
+                 $data->last_filed_form = $this->LastFiled1120->storeOnCloudinary('expattaxcpa')->getSecurePath(); 
              }
 
              $data->corporation_name = $this->nameOfCorporation;
@@ -233,12 +233,12 @@ class SCorporations extends Component
              $data->are_assets_worth_one_million = $this->isAssetWorth;
 
              if(!empty($this->DocumentForBalanceSheet)){
-                 $data->balance_sheet = $this->DocumentForBalanceSheet->store('files');
+                 $data->balance_sheet = $this->DocumentForBalanceSheet->storeOnCloudinary('expattaxcpa')->getSecurePath(); 
              }
 
              $data->profit_loss_statement = $this->HaveProfitLossStatement;
              if(!empty($this->DocumentForProfitLossStatment)){
-                 $data->profit_loss_statement_file = $this->DocumentForProfitLossStatment->store('files');
+                 $data->profit_loss_statement_file = $this->DocumentForProfitLossStatment->storeOnCloudinary('expattaxcpa')->getSecurePath(); 
              }
 
              $data->income_currency = $this->incomeExpenseCurrency;
@@ -294,6 +294,45 @@ class SCorporations extends Component
     public function prevForm()
     {
         return redirect()->route('c-corporations');
+    }
+
+
+    public function deleteFile($value){
+        switch($value){
+            case 'last-filed': 
+                $data = SCorporation1120s::where('user_id', UserID())->where('filing_years_id', CurrentFilingYear())->first();
+               
+                $this->UploadedLastFiled1120 ='';
+                $data->last_filed_form = '';
+                $data->save();
+                $this->emit('fileDeleted');
+
+                break;
+
+
+            case 'balance-sheet':
+
+                $data = SCorporation1120s::where('user_id', UserID())->where('filing_years_id', CurrentFilingYear())->first();
+               
+                $this->UploadedDocumentForBalanceSheet ='';
+                $data->balance_sheet = '';
+                $data->save();
+                $this->emit('fileDeleted');
+                break;
+
+
+            case 'profit-loss':
+
+                $data = SCorporation1120s::where('user_id', UserID())->where('filing_years_id', CurrentFilingYear())->first();
+               
+                $this->UploadedDocumentForProfitLossStatment ='';
+                $data->profit_loss_statement_file = '';
+                $data->save();
+                $this->emit('fileDeleted');
+                break;
+
+        }
+
     }
 
 }

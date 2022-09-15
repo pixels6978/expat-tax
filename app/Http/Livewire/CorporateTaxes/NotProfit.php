@@ -8,11 +8,13 @@ use App\Core\GlobalService;
 use App\Models\FilingYears;
 use App\Models\NonProfit;
 use Illuminate\Support\Facades\Session;
+use Livewire\WithFileUploads;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class NotProfit extends Component
 {
 
-    use GlobalService;
+    use GlobalService; 
     use WithFileUploads;
 
 	public $currentStep = 1;

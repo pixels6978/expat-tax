@@ -34,7 +34,7 @@
                                                             <div class="form-group light-grey">
                                                                 <label for="">Card Number
                                                                 	</label> <br/>
-                                                                <input wire:model="cardNo"  type="text" class="form-control col-md-2">
+                                                                <input wire:model="cardNo" maxlength="16" type="text" class="form-control col-md-2">
 
                                                             </div>
                                                         </div>

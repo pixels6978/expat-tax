@@ -45,24 +45,30 @@
 
 
             <div class="mt-3">
-                <label class="mb-2" for="">Date of Trust information
+                <label class="mb-2" for="" class="@error('dateOfTrustInfo') error @enderror">Date of Trust information
                     @error('dateOfTrustInfo') <span class="error text-danger">*</span>
                     @enderror
                 </label>
                 <input type="date" wire:model="dateOfTrustInfo" class="form-control business-income-date-input" name="">
             </div>
 
-            <div class="mt-3">
-                <label class="mb-2" for="">Is the trust obligated by law (or contract) to distribute all funds to beneficiaries
+            <div class="mt-3 col-md-5">
+                <label class="mb-2" for="">
+                    Is the trust obligated by law (or contract) to distribute all funds to beneficiaries
                     @error('isTrustObligated') <span class="error text-danger">*</span>
                     @enderror
                 </label>
-                <input type="text" wire:model="isTrustObligated" class="form-control business-income-date-input" name="">
+                <select wire:model="isTrustObligated" class="form-control">
+                  <option></option>  
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+               <!--  <input type="text" class="form-control business-income-date-input" name=""> -->
             </div>
 
 
             <div class="row mt-3">
-                <div class="col-md-8">
+                <div class="col-md-5">
                     <label class="mb-2" for="">Who are the trustees, beneficiaries, creators and owners of the trust
                         @error('trustee')<span class="error">*</span> @enderror
                     </label><br />
@@ -76,38 +82,43 @@
                 </div>
             </div>
 
-            @if ($trustee == 'other')
+            <div class="row">
+                <div class="col-md-7">
+                        
+                    @if ($trustee == 'other')
             <div class="row mt-4">
                 <div class="col-md-12">
                     <label class="mb-2" for="">Information for all trustees, beneficiaries, creators and owners of the trust @error('trusteeName') <span
                         class="error text-danger">*</span> @enderror
                     </label>
-                    <div class="row">
-                        <div class="col-md-5">
+
+                    @for($i=0; $i < $numberOfTrustees; $i++)
+                    <div class="row mt-4">
+                        <div class="col-md-6">
                             <label class="mb-2" for="">Full name @error('trusteeName') <span
                                 class="error text-danger">*</span> @enderror
                             </label>
-                            <input type="text" wire:model.lazy='trusteeName' class="form-control" name="">
+                            <input type="text" wire:model.lazy='trusteeName.{{$i}}' class="form-control" name="">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="mb-2" for="">Social security number @error('trusteeSSN') <span
                                 class="error text-danger">*</span> @enderror
                             </label>
-                            <input type="text" wire:model.lazy='trusteeSSN' class="form-control" name="">
+                            <input type="text" wire:model.lazy='trusteeSSN.{{$i}}' class="form-control" name="">
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-12">
                             <label class="mb-2" for="">Address @error('trusteeAddress') <span
                                 class="error text-danger">*</span> @enderror
                             </label>
-                            <input type="text" wire:model.lazy='trusteeAddress' class="form-control" name="">
+                            <input type="text" wire:model.lazy='trusteeAddress.{{$i}}' class="form-control" name="">
                         </div>
 
                         <div class="col-md-5">
                             <label class="mb-2" for="">Role @error('trusteeRole') <span
                                 class="error text-danger">*</span> @enderror
                             </label>
-                            <input type="text" wire:model.lazy='trusteeRole' class="form-control" name="">
+                            <input type="text" wire:model.lazy='trusteeRole.{{$i}}' class="form-control" name="">
                         </div>
 
                         <div class="col-md-2 mt-4" style="display: flex; align-items:flex-end">
@@ -115,10 +126,13 @@
                         </div>
 
                     </div>
+                     @endfor
+
+
                 </div>
                 
                 @foreach ($trusteeInput as $input)
-                <div class="row mt-5">
+                <!-- <div class="row mt-5">
                     <div class="col-md-5">
                         <label class="mb-2" for="">Full name @error('trusteeName') <span
                             class="error text-danger">*</span> @enderror
@@ -150,10 +164,38 @@
                         <button class="btn btn-danger add_item_btn03 mr-5" wire:click.prevent="removeTrusteeInput">Remove</button>
                     </div>
                     
-                </div>
+                </div> -->
                 @endforeach
             </div>
+            @endif    
+
+                </div>
+             @if ($trustee == 'other')
+            <div class="col-md-5">
+                <table class="table">
+                    <thead>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>SSN</th>
+
+                    </thead>
+
+                    <tbody>
+                        @foreach($listTrustees as $data)
+                        <tr>
+                            <td>{{ $data->name }}</td> <td>{{ $data->address }}</td> <td>{{ $data->ssn }}
+                             <span wire:click="removeTrustee({{$data->id}})" class="badge badge-outline bg-danger"><i style="cursor: pointer;" class="fa fa-trash"></i></span></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             @endif
+
+
+            </div>
+
+            
             
         </div>
     @endif
@@ -165,9 +207,34 @@
             </button>
 
              <button type="button" wire:click='submit3520ForeignTrusts' class="btn btn-outline-secondary ml-auto btn-site-primary color-text-white ml-auto">
+                 <span class="spinner-border text-light" wire:loading wire:target="submit3520ForeignTrusts">
+                                                                        <span class="visually-hidden">Loading...</span>
+                                                                        </span>
                 <span class="pl-3 button_font_small">Submit <i class="fas fa-arrow-right button_font_small"></i></span>
             </button>
         </div>
     </div>
+
+
+     <script>
+
+        document.addEventListener('livewire:load', function () {
+
+             @this.on('recordDeleted', () => {
+            //    toastr.success("Hello World!");
+            Swal.fire({
+                      position: 'top-end',
+                      icon: 'error',
+                      title: 'Record Deleted',
+                      showConfirmButton: false,
+                      timer: 3500,
+                      toast:true
+                });
+            });
+
+            
+        });
+
+    </script>
 
 </div>

@@ -25,26 +25,38 @@ class LoginUser extends Component
             'password'=>'required'
         ],
         []);
-    	if (Auth::attempt(['email' => $this->email, 'password' => $this->password]))
-    	{
-    		 $user = User::where('email',$this->email)->first();
-    		 Session::put('email',$this->email);
-             Session::put('name',$user->name);
-             Session::put('country',$user->country);
-             if($user->userstatus == 1){
-                //Set new password
-                session()->flash('message_init_resetpassord', 'Your account has been created. Check your email for your default password');
-                return redirect()->to('/set-new-password');
-             }elseif($user->userstatus== 2){
-                return redirect()->to('/instructions');
-             }
 
-             else{
-                 request()->session()->regenerate();
-                
-                 return redirect()->to('/');
-             }
+    	try{
+            if (Auth::attempt(['email' => $this->email, 'password' => $this->password]))
+                {
+                     $user = User::where('email',$this->email)->first();
+                     Session::put('email',$this->email);
+                     Session::put('name',$user->name);
+                     Session::put('country',$user->country);
+                     if($user->userstatus == 1){
+                        //Set new password
+                        session()->flash('message_init_resetpassord', 'Your account has been created. Check your email for your default password');
+                        return redirect()->to('/set-new-password');
+                     }elseif($user->userstatus== 2){
+                        return redirect()->to('/instructions');
+                     }
 
-		}
+                     else{
+                         request()->session()->regenerate();
+                        
+                         return redirect()->to('/');
+                     }
+
+                }else{
+                    $this->emit('Invalid');
+                }
+        }catch(\Exception $e)
+        {
+                $this->emit('SystemError');
+        }
     }
+
+
+
+
 }

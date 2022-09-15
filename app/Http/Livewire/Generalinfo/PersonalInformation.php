@@ -225,8 +225,8 @@ class PersonalInformation extends Component
             'TaxpayerDOB'=>'required',
             'occupation'=>'required',
             'AreYouUSCitizen'=>'required',
-            'FilingType' =>'required',
-            'SSN'=>'required_if:AreYouUSCitizen,==,yes',
+            // 'FilingType' =>'required',
+            // 'SSN'=>'required_if:AreYouUSCitizen,==,yes',
 
         ]);
 

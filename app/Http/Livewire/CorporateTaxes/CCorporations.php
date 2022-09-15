@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Core\GlobalService;
 use App\Models\CCorporation1120;
 use Livewire\WithFileUploads;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class CCorporations extends Component
 {
@@ -47,6 +48,8 @@ class CCorporations extends Component
     public $amountSpentOnMaterials;
     public $otherCosts;
     public $endOfYearInventory;
+
+
 
 
 
@@ -133,7 +136,8 @@ class CCorporations extends Component
             $data->is_first_time = $this->isFirstTimeFiling1120;
 
             if(!empty($this->LastFiled1120)){
-                $data->last_filed_form = $this->LastFiled1120->store('files');
+                $data->last_filed_form = $this->LastFiled1120->storeOnCloudinary('expattaxcpa')->getSecurePath(); 
+                // $this->LastFiled1120->store('files');
             }
 
             $data->corporation_name = $this->nameOfCorporation;
@@ -154,12 +158,12 @@ class CCorporations extends Component
             $data->are_assets_worth_one_million = $this->isAssetWorth;
 
             if(!empty($this->DocumentForBalanceSheet)){
-                $data->balance_sheet = $this->DocumentForBalanceSheet->store('files');
+                $data->balance_sheet = $this->DocumentForBalanceSheet->storeOnCloudinary('expattaxcpa')->getSecurePath();
             }
 
             $data->profit_loss_statement = $this->HaveProfitLossStatement;
             if(!empty($this->DocumentForProfitLossStatment)){
-                $data->profit_loss_statement_file = $this->DocumentForProfitLossStatment->store('files');
+                $data->profit_loss_statement_file = $this->DocumentForProfitLossStatment->storeOnCloudinary('expattaxcpa')->getSecurePath();
             }
 
             $data->income_currency = $this->incomeExpenseCurrency;
@@ -211,7 +215,7 @@ class CCorporations extends Component
              $data->is_first_time = $this->isFirstTimeFiling1120;
 
              if(!empty($this->LastFiled1120)){
-                 $data->last_filed_form = $this->LastFiled1120->store('files');
+                 $data->last_filed_form = $this->LastFiled1120->storeOnCloudinary('expattaxcpa')->getSecurePath();
              }
 
              $data->corporation_name = $this->nameOfCorporation;
@@ -232,12 +236,12 @@ class CCorporations extends Component
              $data->are_assets_worth_one_million = $this->isAssetWorth;
 
              if(!empty($this->DocumentForBalanceSheet)){
-                 $data->balance_sheet = $this->DocumentForBalanceSheet->store('files');
+                 $data->balance_sheet = $this->DocumentForBalanceSheet->storeOnCloudinary('expattaxcpa')->getSecurePath();
              }
 
              $data->profit_loss_statement = $this->HaveProfitLossStatement;
              if(!empty($this->DocumentForProfitLossStatment)){
-                 $data->profit_loss_statement_file = $this->DocumentForProfitLossStatment->store('files');
+                 $data->profit_loss_statement_file = $this->DocumentForProfitLossStatment->storeOnCloudinary('expattaxcpa')->getSecurePath();
              }
 
              $data->income_currency = $this->incomeExpenseCurrency;
@@ -289,5 +293,43 @@ class CCorporations extends Component
 
        return redirect()->route('s-corporations');
 
+    }
+
+
+    public function deleteFile($value){
+        switch($value){
+            case 'last-file-120': 
+                $data = CCorporation1120::where('user_id', UserID())->where('filing_years_id', CurrentFilingYear())->first();
+               
+                $this->UploadedLastFiled1120 ='';
+                $data->last_filed_form = '';
+                $data->save();
+                $this->emit('fileDeleted');
+
+                break;
+
+
+            case 'balance-sheet':
+
+                $data = CCorporation1120::where('user_id', UserID())->where('filing_years_id', CurrentFilingYear())->first();
+               
+                $this->UploadedDocumentForBalanceSheet ='';
+                $data->balance_sheet = '';
+                $data->save();
+                $this->emit('fileDeleted');
+                break;
+
+
+            case 'profit-loss':
+
+                $data = CCorporation1120::where('user_id', UserID())->where('filing_years_id', CurrentFilingYear())->first();
+               
+                $this->UploadedDocumentForProfitLossStatment ='';
+                $data->profit_loss_statement_file = '';
+                $data->save();
+                $this->emit('fileDeleted');
+                break;
+
+        }
     }
 }

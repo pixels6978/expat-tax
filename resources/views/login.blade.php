@@ -42,6 +42,7 @@
 
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.js" defer></script>
+
   </head>
   <body class="">
     
@@ -55,5 +56,8 @@
 
     
       @livewireScripts
+
+
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> s
   </body>
 </html>

@@ -127,9 +127,11 @@
                                                                 <div class="form-group light-grey">
                                                                     <div class="form-group ">
                                                                         <div class="file btn @if(!empty($w2Forms[$i])) btn-success @else btn-secondary @endif cs-file-upload">
+
                                                                         <span class="spinner-border text-light" wire:loading wire:target="w2Forms[$i]">
                                                                         <span class="visually-hidden">Loading...</span>
                                                                         </span>
+                                                                        
                                                                            @if(!empty($w2Forms[$i])) 
                                                                             <i  class="fa fa-check "></i> {{ $w2Forms[$i]->getClientOriginalName() }} Uploaded 
                                                                             @else  <i class="fa fa-upload mr-4"></i> Upload W-2 Forms 

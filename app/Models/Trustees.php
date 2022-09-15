@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class 3520ForeignTrusts extends Model
+class Trustees extends Model
 {
     use HasFactory;
+
+    protected $table = 'trustees';
 }

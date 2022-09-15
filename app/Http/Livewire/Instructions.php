@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\FilingYears;
+use App\Models\Filing;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -16,6 +17,7 @@ class Instructions extends Component
     public $completedYears = [];
     public $filingMode;
     public $db_filing_year;
+    public $setRequestType;
 
 
 
@@ -30,8 +32,21 @@ class Instructions extends Component
 
     public function mount()
     {
+        //Fetch all filing years
         $this->db_filing_year = FilingYears::where('user_id', auth()->user()->id)->get();
+        
+        //Uncompleted year
         $current_filing_year = FilingYears::where('status', 0)->where('user_id', auth()->user()->id)->first();
+        
+        $filing= Filing::where('filing_years_id', CurrentFilingYear())->first();
+        if(!empty($filing)){
+            session()->put('filePartnership',$filing->partnership);
+            session()->put('fileCcorporation',$filing->ccorporation);
+            session()->put('fileScorporation',$filing->scorporation);
+            session()->put('fileForeignCorporation',$filing->foreign_corporation);
+            session()->put('fileNotProfit',$filing->not_profit);
+        }
+
 
         if($this->db_filing_year->count() == 1){
             $this->requestType = 'single';
@@ -49,6 +64,7 @@ class Instructions extends Component
             foreach($this->db_filing_year as $year){
                 $this->multipleSelectedYear[] = $year->year;
             }
+
 
             if($current_filing_year){
                 $this->CurrentTaxFilingYear = $current_filing_year->year;
@@ -84,9 +100,9 @@ class Instructions extends Component
 
 
     public function post(){
-        if(session()->has('instructions')){
-            return redirect()->to('/general-questions');
-        }
+        // if(session()->has('instructions')){
+        //     return redirect()->to('/general-questions');
+        // }
 
         $validatedData = $this->validate([
             'selectedYear' => 'required_if:requestType,==,single',
@@ -103,7 +119,7 @@ class Instructions extends Component
         // 'email.email' =>'Invalid email address',];
         // $this->validate($rules,$messages);
 
-        // dd($this->multipleSelectedYear);
+       
         if($this->requestType == 'single'){
             $filingYear = new FilingYears;
             $filingYear->user_id = auth()->user()->id;
@@ -132,6 +148,13 @@ class Instructions extends Component
     }
 
 
+    public function updatedsetRequestType($value){
+        if($value == 1){
+            $this->requestType = 'single';
+        }else{
+            $this->requestType = 'multiple';
+        }
+    }
 
 
 }

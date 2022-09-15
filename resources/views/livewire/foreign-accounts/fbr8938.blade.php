@@ -815,10 +815,15 @@
         <div class="row mt-5">
             <div class="button-flex">
                 <button type="button" wire:click='prevForm' class="btn btn-outline-secondary mr-auto btn-site-primary color-text-white">
+                    
+
                     <span class="pl-3 button_font_small"><i class="fas fa-arrow-left button_font_small"></i> Account Holder</span>
                 </button>
     
                 <button type="button" wire:click='goto5471ForeignCorp' class="btn btn-outline-secondary ml-auto btn-site-primary color-text-white ml-auto">
+                    <span class="spinner-border text-light" wire:loading wire:target="goto5471ForeignCorp">
+                                                                        <span class="visually-hidden">Loading...</span>
+                                                                        </span>
                     <span class="pl-3 button_font_small">5471 Foreign Corporation <i class="fas fa-arrow-right button_font_small"></i></span>
                 </button>
             </div>

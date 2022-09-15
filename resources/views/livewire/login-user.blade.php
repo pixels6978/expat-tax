@@ -67,4 +67,41 @@
             <!--  <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p> -->
         </form>
     </main>
+
+
+        <script>
+
+        document.addEventListener('livewire:load', function () {
+
+
+            @this.on('Invalid', () => {
+            //    toastr.success("Hello World!");
+            Swal.fire({
+                      position: 'top-end',
+                      icon: 'error',
+                      title: 'Invalid Username / password',
+                      showConfirmButton: false,
+                      timer: 3500,
+                      toast:true
+                });
+            });
+
+
+             @this.on('SystemError', () => {
+            //    toastr.success("Hello World!");
+            Swal.fire({
+                      position: 'top-end',
+                      icon: 'error',
+                      title: 'General Failure. Please try again later',
+                      showConfirmButton: false,
+                      timer: 3500,
+                      toast:true
+                });
+            });
+
+            
+        });
+
+    </script>
+
 </div>

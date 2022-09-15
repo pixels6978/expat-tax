@@ -21,7 +21,8 @@ class GeneralInformation extends Component
     public $currentStep=1;
     public $currentView ='general-question';
     public $CorporateOrPartnerTax,$ReturningClient,$NumberofFilesUploded,$UploadPreviousUSTax,$FiledExtention,$SpecifyExtendedDate,$ClaimedasDependent,$StreamLinedFile;
-    public $partnership, $ccorporation, $scorporation, $foreign_corporation, $not_profit;
+    public $partnership, $ccorporation, $scorporation, $foreignCorporation;
+    public $notProfit;
     public $AmendedReturns='';
     public $SupportingDocument = [];
     public $NonWillfulWording;
@@ -49,10 +50,10 @@ class GeneralInformation extends Component
             if($current_filing_year && $current_filing_year->Filing){
                 $this->CorporateOrPartnerTax = $current_filing_year->Filing->additional_returns;
                 $this->partnership = $current_filing_year->Filing->partnership;
-                $this->foreign_corporation = $current_filing_year->Filing->foreign_corporation;
+                $this->foreignCorporation = $current_filing_year->Filing->foreign_corporation;
                 $this->ccorporation = $current_filing_year->Filing->ccorporation;
                 $this->scorporation = $current_filing_year->Filing->scorporation;
-                $this->not_profit = $current_filing_year->Filing->not_profit;
+                $this->notProfit = $current_filing_year->Filing->not_profit;
                 $this->AmendedReturns = $current_filing_year->Filing->amended_returns;
                 $this->ReturningClient = $current_filing_year->Filing->returning_clients;
                 $this->FiledPreviousUSTax = $current_filing_year->Filing->ustax_return;
@@ -115,10 +116,10 @@ class GeneralInformation extends Component
                 $filed->filing_years_id = $filing_year->id;
                 $filed->additional_returns = $this->CorporateOrPartnerTax;
                 $filed->partnership = $this->partnership;
-                $filed->foreign_corporation = $this->foreign_corporation;
+                $filed->foreign_corporation = $this->foreignCorporation;
                 $filed->ccorporation = $this->ccorporation;
                 $filed->scorporation = $this->scorporation;
-                $filed->not_profit = $this->not_profit;
+                $filed->not_profit = $this->notProfit;
                 $filed->amended_returns = $this->AmendedReturns;
                 $filed->returning_clients = $this->ReturningClient;
                 $filed->ustax_return = $this->FiledPreviousUSTax;
@@ -155,10 +156,10 @@ class GeneralInformation extends Component
             $filing->filing_years_id = $filing_year->id;
             $filing->additional_returns = $this->CorporateOrPartnerTax;
             $filing->partnership = $this->partnership;
-            $filing->foreign_corporation = $this->foreign_corporation;
+            $filing->foreign_corporation = $this->foreignCorporation;
             $filing->ccorporation = $this->ccorporation;
             $filing->scorporation = $this->scorporation;
-            $filing->not_profit = $this->not_profit;
+            $filing->not_profit = $this->notProfit;
             $filing->amended_returns = $this->AmendedReturns;
             $filing->returning_clients = $this->ReturningClient;
             $filing->ustax_return = $this->FiledPreviousUSTax;
@@ -300,5 +301,68 @@ class GeneralInformation extends Component
         
         session()->put('isFillingStreamlined',$value);
     }
+
+    public function updatedpartnership($value){
+        session()->put('filePartnership',$value);
+        $filing_year = FilingYears::where('user_id', UserID())->where('id', CurrentFilingYear())->first();
+        $filed = Filing::where('filing_years_id', $filing_year->id)->first();
+            if($filed){
+                $filed->partnership = $this->partnership;
+                $filed->save();
+            }
+    }
+
+    public function updatedccorporation($value){
+        session()->put('fileCcorporation',$value);
+        $filing_year = FilingYears::where('user_id', UserID())->where('id', CurrentFilingYear())->first();
+        $filed = Filing::where('filing_years_id', $filing_year->id)->first();
+            if($filed){
+                //$filed->foreign_corporation = $this->foreignCorporation;
+                $filed->ccorporation = $this->ccorporation;
+                $filed->save();
+            }
+    }
+
+    
+
+     public function updatedscorporation($value){
+        session()->put('fileScorporation',$value);
+         $filing_year = FilingYears::where('user_id', UserID())->where('id', CurrentFilingYear())->first();
+        $filed = Filing::where('filing_years_id', $filing_year->id)->first();
+            if($filed){
+                //$filed->foreign_corporation = $this->foreignCorporation;
+                 $filed->scorporation = $this->scorporation;
+                $filed->save();
+            }
+    }
+
+     public function updatedforeignCorporation($value){
+        session()->put('fileForeignCorporation',$value);
+        $filing_year = FilingYears::where('user_id', UserID())->where('id', CurrentFilingYear())->first();
+        $filed = Filing::where('filing_years_id', $filing_year->id)->first();
+            if($filed){
+                $filed->foreign_corporation = $this->foreignCorporation;
+                
+                $filed->save();
+            }
+    }
+
+
+     public function updatednotProfit($value){
+        session()->put('fileNotProfit',$value);
+        $filing_year = FilingYears::where('user_id', UserID())->where('id', CurrentFilingYear())->first();
+        $filed = Filing::where('filing_years_id', $filing_year->id)->first();
+            if($filed){
+                $filed->not_profit = $this->notProfit;
+                
+                $filed->save();
+            }
+    }
+
+
+               
+               
+               
+
 
 }

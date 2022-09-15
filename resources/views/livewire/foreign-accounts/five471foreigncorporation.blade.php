@@ -281,19 +281,25 @@
         </div>
     </div>
 
+    
 
     @if($isDirector == 'yes')
         <div class="form-group row mt-3">
             <label for="companyFinal" class="">Upload your company's final, signed financial statements</label>
             <div class="form-group light-grey">
                 <div class="form-group mt-1">
+                    <div class="mb-2">
+                  @if($uploadedFinanceStatement != null) 
+                   <a href="{{$uploadedFinanceStatement}}">View File </a>
+                   @endif
+                </div>
                     <div class="file btn btn-outline-success cs-file-upload">
                         <span class="spinner-border text-dark" wire:loading wire:target="signedFinancialStatement">
                         <span class="visually-hidden">Loading...</span>
                         </span>
                         @if(!empty($signedFinancialStatement)) 
                          <i  class="fa fa-check "></i> {{ $signedFinancialStatement->getClientOriginalName() }} Uploaded 
-                           @else  <i class="fa fa-upload mr-4"></i> Upload Forms 
+                           @else  <i class="fa fa-upload mr-4"></i> Upload Signed Statements 
                         @endif
                     <input wire:model="signedFinancialStatement" type="file"  />
                     </div>
@@ -313,7 +319,7 @@
                         </span>
                         @if(!empty($signedFinancialStatementIsraeli)) 
                          <i  class="fa fa-check "></i> {{ $signedFinancialStatementIsraeli->getClientOriginalName() }} Uploaded 
-                           @else  <i class="fa fa-upload mr-4"></i> Upload Forms 
+                           @else  <i class="fa fa-upload mr-4"></i> Upload Doch Hatama Forms 
                         @endif
                     <input wire:model="signedFinancialStatementIsraeli" type="file"  />
                     </div>
@@ -322,6 +328,12 @@
         </div>
 
         @elseif(!$countryOfResidence == '')
+        <div class="mb-2">
+                  @if($uploadedCoprationTaxReturns != null) 
+                   <a href="{{$uploadedCoprationTaxReturns}}">View File </a>
+                   @endif
+        </div>
+
         <div class="form-group row mt-3">
             <label for="corporationTaxReturn" class="">Upload the corporation's tax return</label>
             <div class="form-group light-grey">
@@ -332,7 +344,7 @@
                         </span>
                         @if(!empty($corporationTaxReturn)) 
                          <i  class="fa fa-check "></i> {{ $corporationTaxReturn->getClientOriginalName() }} Uploaded 
-                           @else  <i class="fa fa-upload mr-4"></i> Upload Forms 
+                           @else  <i class="fa fa-upload mr-4"></i> Upload Corporation's Tax Forms 
                         @endif
                     <input wire:model="corporationTaxReturn" type="file"  />
                     </div>
@@ -342,14 +354,14 @@
     @endif
     
     <h6 class="section-header mt-5">
-        Company's Information
+        Company's Information @if($nameOfCorporation != null) ({{$nameOfCorporation}}) @endif
     </h3>  
 
     <div>
         <div class="rental-multibusiness-toggler">
             <div>
-                <select class="business-income-date-input" wire:model="noOfCompanies">
-                    <option value=""> </option>
+                <select class="business-income-date-input" wire:change="getCompanyData($event.target.value)">
+                    <option value="0"> </option>
                     @foreach ($companies as $data)
 
                         <option value="{{$data->id}}"> {{$data->corporation_name}}</option>
@@ -357,7 +369,11 @@
                 </select>
             </div>
             <div class="multibusiness-toggler-right">
-                <button type="button" wire:click='addCompanyField({{$i}})' class="btn btn-default"><i class="fas fa-plus button_font_small"></i> Add another company</button>
+                <button type="button" wire:click='addMore()' class="btn btn-default">
+                    <span class="spinner-border text-dark" wire:loading wire:target="addMore">
+                        <span class="visually-hidden">Loading...</span>
+                        </span> <i class="fas fa-plus button_font_small"></i>
+                 Add another company</button>
                 <button type="button" wire:click='removeCompanyField({{$i}})' class="btn btn-default"><i class="fas fa-trash button_font_small"></i> Delete</button>
             </div>
         </div>
@@ -928,5 +944,27 @@
             </button>
         </div>
     </div>
+
+
+            <script>
+
+        document.addEventListener('livewire:load', function () {
+
+             @this.on('recordSaved', () => {
+            //    toastr.success("Hello World!");
+            Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'Record Added',
+                      showConfirmButton: false,
+                      timer: 3500,
+                      toast:true
+                });
+            });
+
+            
+        });
+
+    </script>
 
 </div>

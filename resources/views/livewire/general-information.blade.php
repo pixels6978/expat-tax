@@ -304,12 +304,12 @@
                                     file</label><br />
                                 <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="1" id="partnership" wire:model='partnership'>
-                                        <label class="form-check-label" for="partnership">Partnership 1065 Form
+                                        <input @if($partnership == 1) checked @endif class="form-check-input" type="checkbox" value="1" id="partnership" wire:model='partnership'>
+                                        <label class="form-check-label" for="partnership">Partnership 1065 Form {{ $partnership}}
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input  wire:model='ccorporation' class="form-check-input" type="checkbox" value="1" id="ccorporation">
+                                        <input selected wire:model='ccorporation' class="form-check-input" type="checkbox" value="1" id="ccorporation">
                                         <label class="form-check-label" for="ccorporation">
                                             C-Corporation
                                         </label>
@@ -327,15 +327,15 @@
 
                                 <div class="col-md-6">
                                     <div class="form-check">
-                                        <input  wire:model='foreign_corporation' class="form-check-input" type="checkbox" value="1" id="foreign_corporation">
-                                        <label class="form-check-label" for="foreign_corporation">
+                                        <input  wire:model='foreignCorporation' class="form-check-input" type="checkbox" value="1" id="foreignCorporation">
+                                        <label class="form-check-label" for="foreignCorporation">
                                             Foreign Corporation 1120F
                                         </label>
                                     </div>
 
                                     <div class="form-check">
-                                        <input  wire:model='not_profit' class="form-check-input" type="checkbox" value="1" id="not_profit">
-                                        <label class="form-check-label" for="not_profit">
+                                        <input  wire:model='notProfit' class="form-check-input" type="checkbox" value="1" id="notProfit">
+                                        <label class="form-check-label" for="notProfit">
                                             Not-for-profit 990
                                         </label>
                                     </div>

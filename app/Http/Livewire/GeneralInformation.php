@@ -254,7 +254,7 @@ class GeneralInformation extends Component
                 $current_filing = Filing::where('filing_years_id', $filing_year->id)->first();
 
                 if($current_filing){
-                    $current_filing->streamlined_filing = $this->StreamLinedFile;
+                    $current_filing->streamlined_filing  = $this->StreamLinedFile;
                     $current_filing->non_willful_wording = $this->NonWillfulWording;
                     $current_filing->save();
                 }
